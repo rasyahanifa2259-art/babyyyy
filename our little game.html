@@ -1,0 +1,714 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Only You Know Me ♡</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  font-family: 'Trebuchet MS', sans-serif;
+  background: linear-gradient(135deg,#ffe1ed,#ffc1d8,#fff3f8);
+  color: #914765;
+  overflow-x: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: 440px;
+  background: #fffafd;
+  padding: 28px 22px;
+  border-radius: 28px;
+  text-align: center;
+  box-shadow: 0 12px 40px #d66d9630;
+  position: relative;
+  z-index: 2;
+}
+
+.heart {
+  font-size: 48px;
+  animation: beat 1.2s infinite;
+  margin-bottom: 14px;
+}
+
+@keyframes beat {
+  50% {transform: scale(1.15);}
+}
+
+h1 {
+  font-size: 25px;
+  margin-bottom: 12px;
+}
+
+.subtitle {
+  font-size: 13px;
+  line-height: 1.8;
+  color: #b47b94;
+  margin-bottom: 22px;
+}
+
+input {
+  width: 100%;
+  padding: 15px;
+  border: 2px solid #f5ccdc;
+  border-radius: 14px;
+  text-align: center;
+  font-size: 18px;
+  outline: none;
+  color: #984969;
+  letter-spacing: 4px;
+}
+
+input:focus {
+  border-color: #e982a9;
+}
+
+.hint {
+  font-size: 12px;
+  margin-top: 12px;
+  color: #c18ca3;
+}
+
+.btn {
+  width: 100%;
+  border: none;
+  border-radius: 15px;
+  padding: 15px;
+  background: #e879a3;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.btn:active {
+  transform: scale(.97);
+}
+
+.error {
+  color: #d84e79;
+  font-size: 12px;
+  margin-top: 12px;
+}
+
+.page {
+  display: none;
+  animation: fade .5s;
+}
+
+@keyframes fade {
+  from {opacity:0; transform:translateY(12px);}
+  to {opacity:1; transform:translateY(0);}
+}
+
+.progress {
+  height: 7px;
+  background: #ffe0eb;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 22px;
+}
+
+.bar {
+  width: 0%;
+  height: 100%;
+  background: #e879a3;
+  transition: .4s;
+}
+
+.number {
+  font-size: 12px;
+  color: #d17b9d;
+  margin-bottom: 12px;
+}
+
+.question {
+  font-size: 19px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.options {
+  display: grid;
+  gap: 11px;
+}
+
+.option {
+  background: white;
+  border: 2px solid #f5d5e2;
+  padding: 14px;
+  border-radius: 15px;
+  color: #97516e;
+  cursor: pointer;
+  font-size: 14px;
+  transition: .2s;
+}
+
+.option.selected {
+  background: #fbd4e3;
+  border-color: #e879a3;
+  font-weight: bold;
+}
+
+.message {
+  background: #fff0f6;
+  border-radius: 18px;
+  padding: 20px;
+  line-height: 1.9;
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+.score {
+  font-size: 48px;
+  color: #e879a3;
+  font-weight: bold;
+  margin: 20px;
+}
+
+.floating {
+  position: fixed;
+  bottom: -30px;
+  font-size: 20px;
+  opacity: .5;
+  animation: floatUp 8s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes floatUp {
+  to {
+    transform: translateY(-110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- PASSWORD -->
+<div id="passwordPage">
+
+  <div class="heart">💗</div>
+
+  <h1>A Little Secret For You</h1>
+
+  <p class="subtitle">
+    Hi, my favorite person! ♡<br><br>
+    Aku punya sesuatu spesial buat kamu.
+    Tapi sebelum masuk, kamu harus
+    membuktikan kalau kamu mengenal aku.
+    <br><br>
+    Are you ready, love?
+  </p>
+
+  <input
+    type="password"
+    id="password"
+    placeholder="Enter password"
+    maxlength="8"
+    inputmode="numeric"
+  >
+
+  <p class="hint">Petunjuk: tanggal lahir aku ♡</p>
+
+  <button class="btn" onclick="checkPassword()">
+    Open My Heart 💌
+  </button>
+
+  <p class="error" id="error"></p>
+
+</div>
+
+
+<!-- INTRO -->
+<div id="introPage" class="page">
+
+  <div class="heart">💞</div>
+
+  <h1>Welcome, My Love</h1>
+
+  <p class="subtitle">
+    Finally, you're here! ♡<br><br>
+
+    Ini bukan sekadar permainan biasa.
+    Aku cuma mau tahu seberapa jauh
+    kamu mengenal aku.
+    <br><br>
+
+    Ada hal-hal kecil tentang aku
+    yang mungkin kamu sudah tahu,
+    tapi ada juga yang mungkin
+    belum pernah kamu dengar.
+    <br><br>
+
+    Jadi, jawab semuanya dengan jujur ya.
+    Jangan asal pilih!
+    <br><br>
+
+    Good luck, my favorite person. 💗
+  </p>
+
+  <button class="btn" onclick="startQuiz()">
+    Let's Play, Love! ♡
+  </button>
+
+</div>
+
+
+<!-- QUIZ -->
+<div id="quizPage" class="page">
+
+  <div class="heart">♡</div>
+
+  <h1>How Well Do You Know Me?</h1>
+
+  <p class="subtitle">
+    10 questions about me. Prove it! 💗
+  </p>
+
+  <div class="progress">
+    <div class="bar" id="bar"></div>
+  </div>
+
+  <div class="number" id="number"></div>
+
+  <div class="question" id="question"></div>
+
+  <div class="options" id="options"></div>
+
+  <button class="btn" onclick="nextQuestion()">
+    Selanjutnya ♡
+  </button>
+
+</div>
+
+
+<!-- RESULT -->
+<div id="resultPage" class="page">
+
+  <div class="heart">💗</div>
+
+  <h1>Quiz Completed!</h1>
+
+  <p class="subtitle">
+    So, how well do you know me?
+  </p>
+
+  <div class="score" id="score"></div>
+
+  <h2 id="resultTitle"></h2>
+
+  <div class="message" id="message"></div>
+
+  <div class="message">
+
+    <h3>Dear, My Favorite Person ♡</h3>
+
+    <br>
+
+    Mungkin ini masih awal dari cerita kita.
+    Bahkan sekarang kita baru memulai
+    perjalanan kecil ini.
+
+    <br><br>
+
+    Tapi aku berharap masih ada banyak
+    hari berikutnya yang bisa kita lewati.
+
+    <br><br>
+
+    Aku ingin kamu mengenal semua
+    tentang aku, mulai dari hal kecil,
+    kebiasaan, kesukaan, sampai
+    cerita yang jarang aku ceritakan.
+
+    <br><br>
+
+    Aku nggak berharap kamu harus
+    tahu semuanya sekarang.
+
+    Aku cuma berharap kamu mau
+    terus belajar mengenal aku,
+    sama seperti aku yang juga
+    ingin terus mengenal kamu.
+
+    <br><br>
+
+    Thank you for being part of my story.
+
+    <br><br>
+
+    <b>I'm happy that it's you. ♡</b>
+
+    <br><br>
+
+    With love,<br>
+    Your favorite person 💗
+
+  </div>
+
+  <button class="btn" onclick="location.reload()">
+    Play Again ♡
+  </button>
+
+</div>
+
+</div>
+
+
+<script>
+
+// PASSWORD
+const PASSWORD = "22052009";
+
+
+// PERTANYAAN DAN JAWABAN
+const questions = [
+
+{
+question: "Hewan apa yang paling bikin aku geli?",
+options: [
+"Kelabang",
+"Semut",
+"Kecoa",
+"Cacing"
+],
+answer: 1
+},
+
+{
+question: "Apa makanan favorit aku?",
+options: [
+"Sate Madura",
+"Soto Betawi",
+"Sate Padang",
+"Rendang"
+],
+answer: 2
+},
+
+{
+question: "Kegiatan favorit aku kalau lagi sama kamu?",
+options: [
+"Main game bareng",
+"Quality time dan dekat sama kamu",
+"Nonton film bareng",
+"Jalan-jalan"
+],
+answer: 1
+},
+
+{
+question: "Olahraga apa yang sekarang jadi favorit aku?",
+options: [
+"Basket",
+"Futsal",
+"Badminton",
+"Voli"
+],
+answer: 2
+},
+
+{
+question: "Dulu aku pernah jadi atlet olahraga apa?",
+options: [
+"Badminton",
+"Basket",
+"Renang",
+"Voli"
+],
+answer: 1
+},
+
+{
+question: "Apa love language aku?",
+options: [
+"Words of Affirmation",
+"Quality Time",
+"Receiving Gifts",
+"Physical Touch"
+],
+answer: 3
+},
+
+{
+question: "Aku lahir di kota mana?",
+options: [
+"Majalengka",
+"Tegal",
+"Bekasi",
+"Jakarta"
+],
+answer: 1
+},
+
+{
+question: "Apa titik terendah yang pernah aku alami?",
+options: [
+"Kehilangan teman dekat",
+"Dibully satu ruangan",
+"Gagal dalam perlombaan",
+"Merasa nggak punya teman"
+],
+answer: 1
+},
+
+{
+question: "Bagaimana urutan sekolah aku selama ini?",
+options: [
+"TK swasta - SD negeri - MTs swasta - MA swasta",
+"TK negeri - SD swasta - MTs negeri - MA swasta",
+"TK swasta - SD negeri - SMP swasta - SMA negeri",
+"TK negeri - SD negeri - MTs swasta - MA negeri"
+],
+answer: 0
+},
+
+{
+question: "Di mana tempat favorit aku?",
+options: [
+"Pantai",
+"Kafe",
+"Di kamar",
+"Tempat wisata"
+],
+answer: 2
+}
+
+];
+
+
+let current = 0;
+let score = 0;
+let selected = null;
+
+
+function showPage(id) {
+
+  document.querySelectorAll(".container > div").forEach(page => {
+    page.style.display = "none";
+  });
+
+  document.getElementById(id).style.display = "block";
+
+}
+
+
+function checkPassword() {
+
+  const value = document.getElementById("password").value;
+
+  if(value === PASSWORD) {
+
+    showPage("introPage");
+
+  } else {
+
+    document.getElementById("error").innerText =
+    "Password salah! Coba ingat lagi tanggal lahir aku yaa 💗";
+
+  }
+
+}
+
+
+document.getElementById("password").addEventListener("keydown", e => {
+  if(e.key === "Enter") checkPassword();
+});
+
+
+function startQuiz() {
+
+  current = 0;
+  score = 0;
+
+  showPage("quizPage");
+
+  showQuestion();
+
+}
+
+
+function showQuestion() {
+
+  selected = null;
+
+  const q = questions[current];
+
+  document.getElementById("number").innerText =
+  `QUESTION ${current + 1} OF ${questions.length}`;
+
+  document.getElementById("question").innerText = q.question;
+
+  document.getElementById("bar").style.width =
+  (current / questions.length * 100) + "%";
+
+  const options = document.getElementById("options");
+
+  options.innerHTML = "";
+
+  q.options.forEach((option,index) => {
+
+    const button = document.createElement("button");
+
+    button.className = "option";
+
+    button.innerText = option;
+
+    button.onclick = () => {
+
+      selected = index;
+
+      document.querySelectorAll(".option").forEach(btn => {
+        btn.classList.remove("selected");
+      });
+
+      button.classList.add("selected");
+
+    };
+
+    options.appendChild(button);
+
+  });
+
+}
+
+
+function nextQuestion() {
+
+  if(selected === null) {
+
+    alert("Pilih jawaban dulu yaa, love! 💗");
+
+    return;
+
+  }
+
+  if(selected === questions[current].answer) {
+
+    score++;
+
+  }
+
+  current++;
+
+  if(current < questions.length) {
+
+    showQuestion();
+
+  } else {
+
+    showResult();
+
+  }
+
+}
+
+
+function showResult() {
+
+  showPage("resultPage");
+
+  document.getElementById("score").innerText =
+  score + " / " + questions.length;
+
+  let title = "";
+  let message = "";
+
+  if(score === 10) {
+
+    title = "PERFECT, MY LOVE! 💗";
+
+    message =
+    "SERIOUSLY?! Kamu tahu semuanya tentang aku! " +
+    "Aku senang banget kalau kamu memperhatikan " +
+    "hal-hal kecil tentang aku. Jangan berhenti " +
+    "mengenal aku yaa. I love this! ♡";
+
+  }
+
+  else if(score >= 8) {
+
+    title = "YOU KNOW ME SO WELL! 💞";
+
+    message =
+    "Wahhh, ternyata kamu benar-benar memperhatikan " +
+    "aku. Tinggal sedikit lagi menuju nilai sempurna. " +
+    "Aku harap kamu terus mengenal aku lebih dalam!";
+
+  }
+
+  else if(score >= 5) {
+
+    title = "NOT BAD, LOVE! 💗";
+
+    message =
+    "Hehehe, kamu sudah cukup mengenal aku. " +
+    "Tapi ternyata masih ada beberapa hal " +
+    "yang harus kamu ketahui. Kita masih punya " +
+    "banyak waktu untuk saling mengenal!";
+
+  }
+
+  else {
+
+    title = "WE NEED MORE STORIES! 🥺";
+
+    message =
+    "Hmmm, sepertinya masih banyak hal tentang aku " +
+    "yang belum kamu tahu. Nggak apa-apa, " +
+    "ini baru awal cerita kita. Semoga ke depannya " +
+    "kamu makin mengenal aku yaa! ♡";
+
+  }
+
+  document.getElementById("resultTitle").innerText = title;
+
+  document.getElementById("message").innerText = message;
+
+}
+
+
+// FLOATING HEARTS
+function createHeart() {
+
+  const heart = document.createElement("div");
+
+  heart.className = "floating";
+
+  heart.innerText = ["♡","💗","💕","♥"][Math.floor(Math.random()*4)];
+
+  heart.style.left = Math.random()*100 + "vw";
+
+  heart.style.animationDuration = (5 + Math.random()*5) + "s";
+
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(),10000);
+
+}
+
+setInterval(createHeart,1000);
+
+</script>
+
+</body>
+</html>
